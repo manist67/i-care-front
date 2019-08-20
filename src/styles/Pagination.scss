@@ -1,0 +1,23 @@
+.pagination-wrapper {
+    ul {
+        padding: 25px 0;
+        width: 100%;
+        text-align: center;
+        li {
+            cursor: pointer;
+            box-sizing: border-box;
+            display: inline-block;
+            border-left: 0;
+            width: 30px;
+            line-height: 30px;
+            margin: 0 5px;
+            border-radius: 3px;
+            text-align: center;
+            background: #f0f0f0;
+        }
+        li.active {
+            background: #2d436e;
+            color: white;
+        }
+    }
+}
