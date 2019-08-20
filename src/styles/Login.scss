@@ -1,0 +1,100 @@
+.login-section {
+    width: 100%;
+    .position-wrapper{
+        position: relative;
+        width: 100%;
+        height: 250px;
+        background-image : url('../assets/images/children.jpg');
+        background-size: 100% auto;
+        .background {
+            display: flex;
+            position: absolute;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        p.main-slogan {
+            font-size: 24px;
+            color: white;
+            font-weight: 500;
+        }
+        p.main-p {
+            margin-top: 30px;
+            font-size: 45px;
+            color: white;
+            font-weight: 500;
+        }
+    }
+    .login-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .login-contents {
+            background: white;
+            margin-top: 100px;
+            border: 1px solid #a0a0a0;
+            padding: 40px;
+            padding-bottom: 25px;
+            border-radius: 15px;
+            width: 400px;
+            h1 {
+                font-size: 25px;
+                font-weight: 500;
+                text-align: center;
+                padding-bottom: 25px;
+                margin-bottom: 25px;
+                border-bottom: 1px solid #f0f0f0;
+            }
+            p {
+                margin-bottom: 15px;
+                label {
+                    display: block;
+                    font-size: 14px;
+                    margin-bottom: 5px;
+                }
+                input[type=text],
+                input[type=password] {
+                    width: 100%;
+                    height: 50px;
+                    padding: 10px;
+                    box-sizing: border-box;
+                    border-radius: 3px;
+                    border: 1px solid #a0a0a0;
+                    background: white;
+                    outline: none;
+                }
+                .button {
+                    cursor: pointer;
+                    text-align: center;
+                    display: block;
+                    width: 100%;
+                    height: 50px;
+                    line-height: 45px;
+                    border: 0;
+                    outline: none;
+                    background: none;
+                    font-size: 16px;
+                    color: white;
+                    border-radius: 5px;
+                }
+                .button.login-button {
+                    background: #fbbe18
+                }
+                .button.login-button:active {
+                    background: #e2af24
+                }
+                .button.signup-button {
+                    background: white;
+                    color: #303030
+                }
+            }
+            p:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
