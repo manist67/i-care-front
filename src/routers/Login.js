@@ -30,7 +30,7 @@ class Login extends React.Component {
                             <button className="button login-button">로그인</button>
                         </p>
                         <p>
-                            <Link to="/singup" className="button signup-button">회원가입</Link>
+                            <Link to="/signup" className="button signup-button">회원가입</Link>
                         </p>
                     </div>
                 </div>

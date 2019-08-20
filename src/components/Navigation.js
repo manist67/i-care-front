@@ -7,7 +7,7 @@ function Navigation() {
         <nav>
             <div className="nav-wrapper">
                 <div className="logo">
-                    아이케어
+                    <Link to="/">아이케어</Link>
                 </div> 
                 <div className="nav-items">
                     <ul>
