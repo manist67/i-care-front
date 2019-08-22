@@ -36,6 +36,11 @@ class ApplicationDetail extends React.Component {
         )
     }
 
+    redirectToSubmit() {
+        const {seq} = this.props.match.params;
+        this.props.history.push(`/detail/${seq}/submit`);
+    }
+
     render() {
         if(!this.state.proposal) {
             return (<></>)
@@ -144,7 +149,7 @@ class ApplicationDetail extends React.Component {
                             </div>
                         </div>
                         <div className="btns-wrapper">
-                            <button className="btn-submit" type="button">신청하기</button>
+                            <button className="btn-submit" type="button" onClick={this.redirectToSubmit.bind(this)}>신청하기</button>
                         </div>
                     </div>
                 </article>
