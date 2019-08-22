@@ -13,11 +13,50 @@ import ApplicationList from './routers/ApplicationList';
 import ApplicationWrite from './routers/ApplicationWrite';
 import Axios from 'axios';
 import URL from './config/URL';
+import { SET_SEQ, SET_NAME, SET_TOKEN } from './actions';
 
-const store = createStore(reducers)
+const store = createStore(reducers);
 
 class App extends React.Component {
+  state = {
+    isLoad: false
+  }
+
+  componentDidMount() {
+    this.getUserInfo();
+  }
+
+  async getUserInfo() {
+    const token =  await localStorage.getItem("token");
+    if(!token) return;
+    try {
+      const {data: user} = await Axios.get(`${URL}/auth`, {
+          headers: { token }
+      });
+
+      store.dispatch({
+        type: SET_SEQ,
+        value: user.seq
+      });
+
+      store.dispatch({
+        type: SET_NAME,
+        value: user.name
+      });
+
+      store.dispatch({
+        type: SET_TOKEN,
+        value: token
+      });
+    } catch(e) {
+      console.log(e);
+    }
+    this.setState({isLoad: true})
+  }
+
   render() {
+    if(!this.state.isLoad) return (<></>);
+
     return (
       <Provider store={store}>
         <BrowserRouter>

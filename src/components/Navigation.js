@@ -2,31 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../styles/Navigation.scss';
-import Axios from 'axios';
-import URL from '../config/URL';
 import { setToken, setSeq, setName } from '../actions';
 
 class Navigation extends React.Component {
-    componentDidMount() {
-      this.getUserInfo();
-    }
-  
-    async getUserInfo() {
-      const token =  await localStorage.getItem("token");
-      if(!token) return;
-      try {
-        const {data: user} = await Axios.get(`${URL}/auth`, {
-            headers: { token }
-        });
-  
-        this.props.setToken(token);
-        this.props.setSeq(user.seq);
-        this.props.setName(user.name);
-      } catch(e) {
-        console.log(e);
-      }
-    }
-
     renderDefault() {
         return (
             <ul>
@@ -80,18 +58,5 @@ function mapStateToProps (state) {
     return state;
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        setToken: (token) => {
-            dispatch(setToken(token));
-        },
-        setSeq: (seq) => {
-            dispatch(setSeq(seq));
-        },
-        setName: (name) => {
-            dispatch(setName(name));
-        }
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
+export default connect(mapStateToProps)(Navigation);
