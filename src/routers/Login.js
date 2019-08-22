@@ -27,12 +27,12 @@ class Login extends React.Component {
             const response = await Axios.post(`${URL}/auth/login`, { id, password });
             const { token } = response.data;
             localStorage.setItem(TOKEN_STORAGE, token);
-            this.props.setToken(token);
 
             const {data: user} = await Axios.get(`${URL}/auth`, {
                 headers: { token }
             });
 
+            this.props.setToken(token);
             this.props.setSeq(user.seq);
             this.props.setName(user.name);
             //TODO: out

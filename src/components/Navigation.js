@@ -31,7 +31,10 @@ class Navigation extends React.Component {
         return (
             <ul>
                 <li>
-                    <Link to={"/signin"}>로그인</Link>
+                    <Link to={"/list"}>신청리스트</Link>
+                </li>
+                <li>
+                    <Link to={"/mypage"}>마이페이지</Link>
                 </li>
                 <li>
                     <Link to={"/signout"}>로그아웃</Link>
