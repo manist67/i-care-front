@@ -71,7 +71,7 @@ class ActivityList extends React.Component {
                         <div className="tools-wrapper">
                             <Link to="/write">신청서 작성</Link>
                         </div>
-                        <Pagination totalPage={10} current={0}/>
+                        <Pagination totalPage={1} current={0}/>
                     </div>
                 </article>
             </section>

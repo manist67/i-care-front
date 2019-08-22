@@ -12,6 +12,7 @@ import Signup from './routers/Signup';
 import ApplicationList from './routers/ApplicationList';
 import ApplicationWrite from './routers/ApplicationWrite';
 import ApplicationDetail from './routers/ApplicationDetail'
+import MyPage from './routers/MyPage';
 
 import Axios from 'axios';
 import URL from './config/URL';
@@ -67,6 +68,7 @@ class App extends React.Component {
         <BrowserRouter>
           <Navigation/>
           <Route component={Main} path="/" exact={true}/>
+          <Route component={MyPage} path="/mypage" exact={true}/>
           <Route component={Login} path="/signin" exact={true}/>
           <Route component={Signup} path="/signup" exact={true}/>
           <Route component={ApplicationList} path="/list" exact={true}/>
