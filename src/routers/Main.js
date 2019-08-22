@@ -9,7 +9,7 @@ class Main extends React.Component {
             <section className="main-section">
                 <div className="main-wrapper">
                     <div className="background">
-                        <p className="main-slogan">당신과 아이가 쉴수 있는 곳</p>
+                        <p className="main-slogan">당신과 아이가 쉴 수 있는 곳</p>
                         <p className="main-p">아이케어</p>
                     </div>
                 </div>
