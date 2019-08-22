@@ -28,28 +28,29 @@ class App extends React.Component {
 
   async getUserInfo() {
     const token =  await localStorage.getItem("token");
-    if(!token) return;
-    try {
-      const {data: user} = await Axios.get(`${URL}/auth`, {
-          headers: { token }
-      });
-
-      store.dispatch({
-        type: SET_SEQ,
-        value: user.seq
-      });
-
-      store.dispatch({
-        type: SET_NAME,
-        value: user.name
-      });
-
-      store.dispatch({
-        type: SET_TOKEN,
-        value: token
-      });
-    } catch(e) {
-      console.log(e);
+    if(token) {
+      try {
+        const {data: user} = await Axios.get(`${URL}/auth`, {
+            headers: { token }
+        });
+  
+        store.dispatch({
+          type: SET_SEQ,
+          value: user.seq
+        });
+  
+        store.dispatch({
+          type: SET_NAME,
+          value: user.name
+        });
+  
+        store.dispatch({
+          type: SET_TOKEN,
+          value: token
+        });
+      } catch(e) {
+        console.log(e);
+      }
     }
     this.setState({isLoad: true})
   }
