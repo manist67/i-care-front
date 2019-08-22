@@ -21,7 +21,6 @@ class Login extends React.Component {
 
     async handlerLogin() {
         const { id, password } = this.state;
-        if(!this.validation(id, password)) return;
 
         try {
             const response = await Axios.post(`${URL}/auth/login`, { id, password });
@@ -35,15 +34,12 @@ class Login extends React.Component {
             this.props.setToken(token);
             this.props.setSeq(user.seq);
             this.props.setName(user.name);
-            //TODO: out
+
+            this.props.history.push("/list");
         } catch(e) {
             alert("아이디와 비밀번호를 확인하세요.");
             console.log(e);
         }
-    }
-
-    validation(id, password) {
-        return true;
     }
 
     render () {

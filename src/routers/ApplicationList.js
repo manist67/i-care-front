@@ -55,7 +55,9 @@ class ActivityList extends React.Component {
                             </thead>
                             <tbody>
                                 {this.state.proposals.map((ele, idx)  => (
-                                <tr key={`idx${idx}`}>
+                                <tr key={`idx${idx}`} onClick={()=>{
+                                    this.props.history.push(`/detail/${ele.seq}`)
+                                }}>
                                     <td>{ele.seq}</td>
                                     <td>{ele.title}</td>
                                     <td>{ele.category}</td>
