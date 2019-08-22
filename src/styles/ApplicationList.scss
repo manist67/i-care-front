@@ -29,7 +29,7 @@
         }
     }
     article {
-        width: 1400px;
+        width: 1160px;
         box-sizing: border-box;
         margin: auto;
         background: white;
@@ -45,22 +45,27 @@
             width: 100%;
             table-layout: fixed;
             thead {
+                box-sizing: border-box;
                 text-align: center;
                 background: #2d436e;
+                border: 1px solid #2d436e;            
                 tr {
                     height: 45px;
                     th {
+                        box-sizing: content-box;
                         color: white;
                         vertical-align: middle;
                     }
                 }
             }
             tbody {
+                box-sizing: border-box;
                 border: 1px solid #a0a0a0;
                 border-top:0;
                 tr {
                     cursor: pointer;
                     height: 45px;
+                    box-sizing: border-box;
                     td {
                         vertical-align: middle;
                         text-align: center;
@@ -72,6 +77,12 @@
                 tr:nth-child(even) {
                     background: #fafafa;
                 }
+                tr:hover {
+                    background: #f0f0f0;
+                }
+                tr:active {
+                    background: #eaeaea;
+                }
             }
             span.label {
                 display: inline-block;
@@ -80,6 +91,25 @@
                 border-radius: 10px;
                 color: white;
                 background: #ff3333;
+            }
+        }
+
+        .tools-wrapper {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            margin-top: 25px;
+            justify-content: flex-end;
+            a {
+                color: #757575;
+                align-items: flex-end;
+                padding: 0 5px;
+            }
+            a:hover {
+                color: #505050;
+            }
+            a:active {
+                color: #303030;
             }
         }
     }

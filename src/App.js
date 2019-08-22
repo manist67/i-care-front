@@ -9,7 +9,8 @@ import Main from './routers/Main';
 import Login from './routers/Login';
 import Footer from './components/Footer';
 import Signup from './routers/Signup';
-import ActivityList from './routers/ActivityList';
+import ApplicationList from './routers/ApplicationList';
+import ApplicationWrite from './routers/ApplicationWrite';
 
 const store = createStore(reducers)
 
@@ -21,7 +22,8 @@ function App() {
         <Route component={Main} path="/" exact={true}/>
         <Route component={Login} path="/signin" exact={true}/>
         <Route component={Signup} path="/signup" exact={true}/>
-        <Route component={ActivityList} path="/list" exact={true}/>
+        <Route component={ApplicationList} path="/list" exact={true}/>
+        <Route component={ApplicationWrite} path="/write" exact={true}/>
         <Footer/>
       </BrowserRouter>
     </Provider>

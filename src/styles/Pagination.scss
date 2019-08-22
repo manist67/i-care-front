@@ -15,8 +15,12 @@
             text-align: center;
             background: #f0f0f0;
         }
+        li:active {
+            background: #8dc63f;
+            color: white;
+        }
         li.active {
-            background: #2d436e;
+            background: #8dc63f;
             color: white;
         }
     }

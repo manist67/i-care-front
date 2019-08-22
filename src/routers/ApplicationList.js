@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/ActivityList.scss';
+import '../styles/ApplicationList.scss';
 import Pagination from '../components/Pagination';
+import Axios from 'axios';
 
 class ActivityList extends React.Component {
     state = {
         data: [1, 2, 3, 4, 5]
     }
+    
     render() {
         return (
             <section className="list-section">
@@ -18,7 +20,7 @@ class ActivityList extends React.Component {
                 </div>
                 <article>
                     <div className="header">
-                        <h1>모집리스트</h1>
+                        <h1>서울특별시 송파구</h1>
                     </div>
                     <div className="body">
                         <table>
@@ -45,7 +47,7 @@ class ActivityList extends React.Component {
                             <tfoot></tfoot>
                         </table>
                         <div className="tools-wrapper">
-                            <Link to="/write">작성</Link>
+                            <Link to="/write">신청서 작성</Link>
                         </div>
                         <Pagination totalPage={10} current={0}/>
                     </div>
