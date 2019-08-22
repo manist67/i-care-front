@@ -1,12 +1,32 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../styles/ApplicationList.scss';
 import Pagination from '../components/Pagination';
 import Axios from 'axios';
 
+import URL from '../config/URL';
+
 class ActivityList extends React.Component {
     state = {
-        data: [1, 2, 3, 4, 5]
+        proposals: []
+    }
+
+    componentDidMount() {
+        this.getProposalsData();
+    }
+
+    async getProposalsData() {
+        const { token } = this.props.user;
+
+        try {
+            const {data: proposals} = await Axios.get(`${URL}/proposals`, {
+                headers: { token }
+            });
+            this.setState({proposals});
+        } catch(e) {
+            alert("잠시 후 다시 시도해주세요!");
+        }
     }
     
     render() {
@@ -34,13 +54,13 @@ class ActivityList extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.state.data.map(ele  => (
-                                <tr>
-                                    <td>{ele}</td>
-                                    <td>Hello world! myname <span className="label">label</span></td>
-                                    <td>Regde</td>
-                                    <td>10 ~ 20</td>
-                                    <td>6 / 10</td>
+                                {this.state.proposals.map((ele, idx)  => (
+                                <tr key={`idx${idx}`}>
+                                    <td>{ele.seq}</td>
+                                    <td>{ele.title}</td>
+                                    <td>{ele.category}</td>
+                                    <td>{ele.minAge} ~ {ele.maxAge}</td>
+                                    <td> / {ele.maxParticipants}</td>
                                 </tr>
                                 ))}
                             </tbody>
@@ -57,4 +77,8 @@ class ActivityList extends React.Component {
     }
 }
 
-export default ActivityList;
+const mapStateToProps = (state) => {
+    return state;
+}
+
+export default connect(mapStateToProps)(ActivityList);

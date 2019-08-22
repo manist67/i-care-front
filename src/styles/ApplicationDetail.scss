@@ -1,4 +1,4 @@
-.application-write-section {
+.application-read-section {
     width: 100%;
     .position-wrapper{
         position: relative;
@@ -56,17 +56,25 @@
                     font-weight: 500;
                     line-height: 40px;
                 }
+                .row {
+                    display: flex;
+                    flex-direction: row;
+                    .input-wrapper {
+                        flex: 1;
+                    }
+                }
                 .input-wrapper {
                     display: flex;
                     margin-bottom: 10px;
+                    flex-direction: column;
                     > label {
                         display: flex;
                         align-items: center;
                         flex: 1;
-                        i.star {
-                            margin-left: 5px;
-                            color: #ff3333;
-                        }
+                        font-size: 18px;
+                        font-weight: 500;
+                        color: #2d436e;
+                        margin-bottom: 5px;
                     }
                     .form-control {
                         display: flex;

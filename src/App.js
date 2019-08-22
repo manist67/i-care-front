@@ -11,9 +11,12 @@ import Footer from './components/Footer';
 import Signup from './routers/Signup';
 import ApplicationList from './routers/ApplicationList';
 import ApplicationWrite from './routers/ApplicationWrite';
+import ApplicationDetail from './routers/ApplicationDetail'
+
 import Axios from 'axios';
 import URL from './config/URL';
 import { SET_SEQ, SET_NAME, SET_TOKEN } from './actions';
+import Logout from './routers/Logout';
 
 const store = createStore(reducers);
 
@@ -67,6 +70,8 @@ class App extends React.Component {
           <Route component={Signup} path="/signup" exact={true}/>
           <Route component={ApplicationList} path="/list" exact={true}/>
           <Route component={ApplicationWrite} path="/write" exact={true}/>
+          <Route component={ApplicationDetail} path="/detail/:seq" exact={true}/>
+          <Route component={Logout} path="/signout" exact={true}/>
           <Footer/>
         </BrowserRouter>
       </Provider>
