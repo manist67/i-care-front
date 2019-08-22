@@ -9,7 +9,12 @@ import URL from '../config/URL';
 
 class ActivityList extends React.Component {
     state = {
-        proposals: []
+        proposals: [],
+        pagination: {
+            page: 0,
+            total: 0,
+            unit: 0
+        }
     }
 
     componentDidMount() {
@@ -20,9 +25,16 @@ class ActivityList extends React.Component {
         const { token } = this.props.user;
 
         try {
-            const {data: proposals} = await Axios.get(`${URL}/proposals`, {
+            const {data: proposals, headers } = await Axios.get(`${URL}/proposals`, {
                 headers: { token }
             });
+
+            /* const pagination = {
+                page: headers.get("X-PAGE"), total: headers.get("X-TOTAL"), unit: headers.get("X-UNIT")
+            } */
+            
+            console.log(headers);
+
             this.setState({proposals});
         } catch(e) {
             alert("잠시 후 다시 시도해주세요!");
