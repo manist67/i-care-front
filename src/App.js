@@ -17,6 +17,7 @@ import Axios from 'axios';
 import URL from './config/URL';
 import { SET_SEQ, SET_NAME, SET_TOKEN } from './actions';
 import Logout from './routers/Logout';
+import SubmitWrite from './routers/SubmitWrite';
 
 const store = createStore(reducers);
 
@@ -72,6 +73,7 @@ class App extends React.Component {
           <Route component={ApplicationWrite} path="/write" exact={true}/>
           <Route component={ApplicationDetail} path="/detail/:seq" exact={true}/>
           <Route component={Logout} path="/signout" exact={true}/>
+          <Route component={SubmitWrite} path="/detail/:seq/submit" exact={true}/>
           <Footer/>
         </BrowserRouter>
       </Provider>
