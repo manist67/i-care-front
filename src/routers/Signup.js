@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/Signup.scss';
 import Axios from 'axios';
 import URL from '../config/URL';
+import DaumPostcode from 'react-daum-postcode';
 
 
 class Signup extends React.Component {
@@ -176,9 +177,14 @@ class Signup extends React.Component {
         
         this.setState({error_password_check: null});
     }
+
+    openDaum() {
+        this.setState({modal: true})
+    }
     
     render() {
         return (
+            <>
             <section className="signup-section">
                 <div className="position-wrapper">
                     <div className="background">
@@ -289,12 +295,16 @@ class Signup extends React.Component {
                         <div className="inputWrapper">
                             <label>주소</label>
                             <div className="input-form">
-                                <input type="text"/>
+                                <input type="text" value={this.state.address1} readOnly={true}/>
+                                <button type="button" onClick={this.openDaum.bind(this)}
+                                    className="btn-duplicate" >
+                                    주소검사
+                                </button>
                             </div>
                         </div>
                         <div className="inputWrapper">
                             <label>상세주소</label>
-                            <input type="password"/>
+                            <input type="text" value={this.state.address2} onChange={ e=>{ this.setState({address2: e.target.value}) }}/>
                         </div>
                         <p className="signup-button-wrapper">
                             <button className="button signup-button" onClick={this.handleSignUp.bind(this)}>회원가입</button>
@@ -302,6 +312,15 @@ class Signup extends React.Component {
                     </div>
                 </article>
             </section>
+            {this.state.modal && <div className="modal" onClick={(e)=>{this.setState({modal: false})}}>
+                <div className="modal-wrapper" onClick={(e) => {e.stopPropagation()}}>
+                    <DaumPostcode onComplete={(data) => {
+                        console.log(data);
+                        this.setState({address1: data.address, modal: false});
+                    }}/>
+                </div>
+            </div>}
+            </>
         );
     }
 }
