@@ -2,6 +2,7 @@ export const SET_TOKEN = "user/SET_TOKEN";
 export const SET_SEQ = "user/SET_SEQ";
 export const SET_NAME = "user/SET_NAME";
 export const RESET = "user/reset";
+export const SET_AUTH = "user/SET_AUTH";
 
 
 export function reset() {
@@ -27,6 +28,13 @@ export function setSeq(value) {
 export function setName(value) {
     return {
         type: SET_NAME,
+        value
+    }
+}
+
+export function setAuth(value) {
+    return {
+        type: SET_AUTH,
         value
     }
 }

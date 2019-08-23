@@ -1,9 +1,10 @@
-import { SET_TOKEN, SET_NAME, SET_SEQ, RESET } from '../actions';
+import { SET_TOKEN, SET_NAME, SET_SEQ, RESET, SET_AUTH } from '../actions';
 
 const INITIAL_STATE = {
     token: null,
     seq: null,
     name: null,
+    auth: null
 }
 
 function UserReducer( state = INITIAL_STATE, action ) {
@@ -19,6 +20,9 @@ function UserReducer( state = INITIAL_STATE, action ) {
             break;
         case SET_NAME:
             newState.name = action.value;
+            break;
+        case SET_AUTH:
+            newState.auth = action.value;
             break;
         case RESET:
             return INITIAL_STATE;

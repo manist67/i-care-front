@@ -5,9 +5,20 @@ import '../styles/Navigation.scss';
 import { setToken, setSeq, setName } from '../actions';
 
 class Navigation extends React.Component {
+    renderAdminTab() {
+        if(this.props.user.auth === "ADMIN" || this.props.user.auth === "MASTER") {
+            return (
+                <li>
+                    <Link to={"/admin"}>관리자</Link>
+                </li>
+            )
+        }
+    }
+
     renderDefault() {
         return (
             <ul>
+                {this.renderAdminTab()}
                 <li>
                     <Link to={"/list"}>신청리스트</Link>
                 </li>

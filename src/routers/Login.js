@@ -7,7 +7,7 @@ import '../styles/Login.scss';
 import Axios from 'axios';
 import URL from '../config/URL';
 import { TOKEN_STORAGE } from '../config/Storage';
-import { setToken, setSeq, setName } from '../actions';
+import { setToken, setSeq, setName, setAuth } from '../actions';
 
 class Login extends React.Component {
     state = {
@@ -34,6 +34,7 @@ class Login extends React.Component {
             this.props.setToken(token);
             this.props.setSeq(user.seq);
             this.props.setName(user.name);
+            this.props.setAuth(user.auth);
 
             this.props.history.push("/list");
         } catch(e) {
@@ -89,6 +90,9 @@ function mapDispatchToProps(dispatch) {
         },
         setName: (name) => {
             dispatch(setName(name));
+        },
+        setAuth: (auth) => {
+            dispatch(setAuth(auth));
         }
     }
 }

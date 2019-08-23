@@ -16,9 +16,10 @@ import MyPage from './routers/MyPage';
 
 import Axios from 'axios';
 import URL from './config/URL';
-import { SET_SEQ, SET_NAME, SET_TOKEN } from './actions';
+import { SET_SEQ, SET_NAME, SET_TOKEN, SET_AUTH } from './actions';
 import Logout from './routers/Logout';
 import SubmitWrite from './routers/SubmitWrite';
+import Admin from './routers/Admin';
 
 const store = createStore(reducers);
 
@@ -53,6 +54,11 @@ class App extends React.Component {
           type: SET_TOKEN,
           value: token
         });
+
+        store.dispatch({
+          type: SET_AUTH,
+          value: user.auth
+        });
       } catch(e) {
         console.log(e);
       }
@@ -71,6 +77,7 @@ class App extends React.Component {
           <Route component={MyPage} path="/mypage" exact={true}/>
           <Route component={Login} path="/signin" exact={true}/>
           <Route component={Signup} path="/signup" exact={true}/>
+          <Route component={Admin} path="/admin" exact={true}/>
           <Route component={ApplicationList} path="/list" exact={true}/>
           <Route component={ApplicationWrite} path="/write" exact={true}/>
           <Route component={ApplicationDetail} path="/detail/:seq" exact={true}/>
