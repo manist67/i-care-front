@@ -1,5 +1,7 @@
 import React from 'react';
 import '../styles/Signup.scss';
+import Axios from 'axios';
+import URL from '../config/URL';
 
 
 class Signup extends React.Component {
@@ -7,24 +9,20 @@ class Signup extends React.Component {
         userID: "",
         nickname: "",
         phone: "",
-        phoneAuth: "",
-        phoneToken: "",
         password: "",
         password_check: "",
         email: "",
         address1: "",
         address2: "",
-        isPhoneSend: false,
         /* valid server check */
-        duplicate_id: true,
-        duplicate_nickname: true,
-        duplicate_phone: true,
-        duplicate_email: true,
+        duplicate_id: false,
+        duplicate_nickname: false,
+        duplicate_phone: false,
+        duplicate_email: false,
         /* for alert validations */
         error_id: "",
         error_nickname: "",
         error_phone: "",
-        error_auth: "",
         error_password: "",
         error_password_check: "",
         error_email: "",
@@ -32,62 +30,113 @@ class Signup extends React.Component {
         error_address2: ""
     }
 
-    handleIDDuplication() {
-
-    }
-
-    handleNicknameDuplication() {
-
-    }
-
-    handlePhoneDuplication() {
-
-    }
-
-    handleSignUp() {
-        console.log(this.state);
-    }
-
-    /**
-     * valid functions
-     */
-    validUserID(e) {
-        const { value } = e.target
-        if(value.length < 6) {
+    async handleIDDuplication() {
+        const { userID } = this.state;
+        if(userID.length < 6) {
             this.setState({error_id: "아이디는 6자 이상으로 만들어주세요!"});
             return;
         }
 
+        try {
+            const response = await Axios.get(`${URL}/auth/validator`, {
+                params: {
+                    flag: "id",
+                    value: userID
+                }
+            });
+
+            if(!response.data) {
+                this.setState({error_id: "중복된 아이디입니다."});
+                return;
+            }
+
+            this.setState({duplicate_id: true});
+        } catch(e) {
+
+        }
         this.setState({error_id: null});
     }
 
-    validNickName(e) {
-        const { value } = e.target
-        if(value.length < 3) {
+    async handleNicknameDuplication() {
+        const { nickname } = this.state;
+        if(nickname.length < 3) {
             this.setState({error_nickname: "닉네임은 3자 이상으로 만들어주세요"});
             return;
         }
         
-        if(value.length > 10) {
+        if(nickname.length > 10) {
             this.setState({error_nickname: "닉네임은 10자 이하로 만들어주세요"});
             return;
+        }
+
+        try {
+            const response = await Axios.get(`${URL}/auth/validator`, {
+                params: {
+                    flag: "nickname",
+                    value: nickname
+                }
+            });
+
+            if(!response.data) {
+                this.setState({error_nickname: "중복된 닉네임입니다."});
+                return;
+            }
+
+            this.setState({duplicate_nickname: true});
+        } catch(e) {
+
         }
 
         this.setState({error_nickname: null});
     }
 
-    validPhone(e) {
-        const { value } = e.target
+    async handlePhoneDuplication() {
+        const { phone } = this.state;
         const phoneRegex = new RegExp("[0-9]{3}-[0-9]{3,4}-[0-9]{3,4}");
         //TODO: valid phone
-        if(!phoneRegex.test(value)) {
+        if(!phoneRegex.test(phone)) {
             this.setState({error_phone: "정확한 휴대폰 번호를 입력해주세요."});
             return;
+        }
+
+        try {
+            const response = await Axios.get(`${URL}/auth/validator`, {
+                params: {
+                    flag: "phone",
+                    value: phone
+                }
+            });
+
+            if(!response.data) {
+                this.setState({error_phone: "중복된 번호입니다."});
+                return;
+            }
+
+            this.setState({duplicate_phone: true});
+        } catch(e) {
+
         }
 
         this.setState({error_phone: null});
     }
 
+    async handleSignUp() {
+        const { userID, password, email, address1, address2, phone, nickname} = this.state;
+        try {
+            await Axios.post(`${URL}/users`, {
+                userID, password, email, address1, address2, phone, nickname
+            });
+        } catch(e) {
+            console.log(e);
+        }
+
+        alert("회원가입이 됐습니다!");
+        this.props.history.push("/");
+    }
+
+    /**
+     * valid functions
+     */
     validPassword(e) {
         const { value } = e.target
         const passwordRegex = new RegExp("(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}");
@@ -153,11 +202,19 @@ class Signup extends React.Component {
                             </p>
                             <div className="input-form">
                                 <input type="text" 
-                                    onBlur={this.validUserID.bind(this)}
-                                    onChange={(e)=> {this.setState({userID: e.target.value})}}/>
-                                <button type="button" className="btn-duplicate">
-                                    중복확인
-                                </button>
+                                    onChange={(e)=> {this.setState({userID: e.target.value})}}
+                                    disabled={this.state.duplicate_id}/>
+                                {!this.state.duplicate_id ? 
+                                    <button type="button" onClick={this.handleIDDuplication.bind(this)}
+                                        className="btn-duplicate">
+                                        중복확인
+                                    </button>
+                                    :
+                                    <button type="button"
+                                        className="btn-duplicate">
+                                        사용가능
+                                    </button>
+                                }
                             </div>
                         </div>
                         <div className="inputWrapper">
@@ -167,11 +224,19 @@ class Signup extends React.Component {
                             </p>
                             <div className="input-form">
                                 <input type="text" 
-                                    onBlur={this.validNickName.bind(this)}
-                                    onChange={(e)=> {this.setState({nickname: e.target.value})}}/>
-                                <button type="button" className="btn-duplicate">
-                                    중복확인
-                                </button>
+                                    onChange={(e)=> {this.setState({nickname: e.target.value})}}
+                                    disabled={this.state.duplicate_nickname}/>
+                                {!this.state.duplicate_nickname ? 
+                                    <button type="button" onClick={this.handleNicknameDuplication.bind(this)}
+                                        className="btn-duplicate">
+                                        중복확인
+                                    </button>
+                                    :
+                                    <button type="button"
+                                        className="btn-duplicate">
+                                        사용가능
+                                    </button>
+                                }
                             </div>
                         </div>
                         <div className="inputWrapper">
@@ -182,20 +247,19 @@ class Signup extends React.Component {
                             <div className="input-form">
                                 <input type="text" 
                                     placeholder="010-0000-0000"
-                                    onBlur={this.validPhone.bind(this)}
-                                    onChange={(e)=> {this.setState({phone: e.target.value})}}/>
-                                <button type="button" className="btn-duplicate">
-                                    인증발송
-                                </button>
-                            </div>
-                        </div>
-                        <div className="inputWrapper">
-                            <label>인증번호 확인</label>
-                            <div className="input-form">
-                                <input type="text" onChange={(e)=> {this.setState({phoneAuth: e.target.value})}}/>
-                                <button type="button" className={["btn-duplicate", !this.state.phoneAuth ? "btn-disabled" : ""].join(" ")}>
-                                    확인
-                                </button>
+                                    onChange={(e)=> {this.setState({phone: e.target.value})}}
+                                    disabled={this.state.duplicate_phone}/>
+                                {!this.state.duplicate_phone ? 
+                                    <button type="button" onClick={this.handlePhoneDuplication.bind(this)}
+                                        className="btn-duplicate">
+                                        중복확인
+                                    </button>
+                                    :
+                                    <button type="button"
+                                        className="btn-duplicate">
+                                        사용가능
+                                    </button>
+                                }
                             </div>
                         </div>
                         <div className="inputWrapper">
@@ -226,9 +290,6 @@ class Signup extends React.Component {
                             <label>주소</label>
                             <div className="input-form">
                                 <input type="text"/>
-                                <button type="button" className="btn-duplicate">
-                                    주소 검색
-                                </button>
                             </div>
                         </div>
                         <div className="inputWrapper">
