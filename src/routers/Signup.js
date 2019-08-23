@@ -15,6 +15,7 @@ class Signup extends React.Component {
         email: "",
         address1: "",
         address2: "",
+        location: "",
         /* valid server check */
         duplicate_id: false,
         duplicate_nickname: false,
@@ -122,17 +123,17 @@ class Signup extends React.Component {
     }
 
     async handleSignUp() {
-        const { userID, password, email, address1, address2, phone, nickname} = this.state;
+        const { userID, password, email, address1, address2, phone, nickname, location} = this.state;
         try {
             await Axios.post(`${URL}/users`, {
-                userID, password, email, address1, address2, phone, nickname
+                userID, password, email, address1, address2, phone, nickname, location
             });
+
+            alert("회원가입을 축하합니다!");
+            this.props.history.push("/signin");
         } catch(e) {
             console.log(e);
         }
-
-        alert("회원가입이 됐습니다!");
-        this.props.history.push("/");
     }
 
     /**
@@ -316,7 +317,7 @@ class Signup extends React.Component {
                 <div className="modal-wrapper" onClick={(e) => {e.stopPropagation()}}>
                     <DaumPostcode onComplete={(data) => {
                         console.log(data);
-                        this.setState({address1: data.address, modal: false});
+                        this.setState({address1: data.address, location: data.zonecode, modal: false});
                     }}/>
                 </div>
             </div>}
